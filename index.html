@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" media="all" href="stilos/style.css">
+  <link rel="stylesheet" href="fonts.css">
+
+  <title>Biblioteca</title>
+  <style>
+    body {
+      background-image: url('imagenes/estante.png');
+      background-repeat: no-repeat;
+      background-position-x: center;
+      background-position-y: center;
+      background-attachment: fixed;
+    }
+  </style>
+  <script type="text/javascript">
+    function showMe(it, box) {
+      var vis = (box.checked) ? "block" : "none";
+      document.getElementById(it).style.display = vis;
+    }
+  </script>
+
+</head>
+
+<body>
+  <header></header>
+  <main>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+    <table border="0">
+      <thead></thead>
+      <tr>
+        <td><img src="imagenes/libro.png" width="60" height="80" /></td>
+        <td>
+          <h1>Registro de Libros</h1>
+        </td>
+        <td>
+          <div class="invisible">
+            <p>Works and tested with: </p>
+            <div id="compat"></div>
+          </div>
+        </td>
+        <td><img src="imagenes/1590612699-clip-education-1024x683.avif" width="160" height="100" /></td>
+
+      </tr>
+    </table>
+
+    <div class="alert alert-primary" role="alert" id="msg"></div>
+
+    <form>
+      <input class="form-check-input" type="checkbox" name="c1" onclick="showMe('div3', this)"> Ingresar Informacion del
+      Libro
+    </form>
+    <form>
+      <input class="form-check-input" type="checkbox" name="c1" onclick="showMe('div2', this)"> Mostrar Datos
+    </form>
+    <form>
+      <input class="form-check-input" type="checkbox" name="c1" onclick="showMe('div1', this)"> Borrar Datos
+    </form>
+
+    <div id="div3" style="display:none">
+      <form id="register-form">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <label for="pub-title" class="required">Titulo:</label>
+              </td>
+              <td>
+                <input type="text" id="pub-title" name="pub-title" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="pub-autor" class="required">Autor y/o Editorial:</label>
+              </td>
+              <td>
+                <input type="text" id="pub-autor" name="pub-autor" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="pub-biblioid" class="required">
+                  Bibliografia (ID):<br />
+                  <span class="note">(ISBN, ISSN, etc.)</span>
+                </label>
+              </td>
+              <td>
+                <input type="text" id="pub-biblioid" name="pub-biblioid" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="pub-year">Año:</label>
+              </td>
+              <td>
+                <input type="number" id="pub-year" name="pub-year" />
+              </td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <td>
+                <label for="pub-file">File imagen:</label>
+              </td>
+              <td>
+                <input type="file" id="pub-file" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="pub-file-url">
+                  Online-file imagen URL:<br />
+                  <span class="note">(same origin URL)</span>
+                </label>
+              </td>
+              <td>
+                <input type="text" id="pub-file-url" name="pub-file-url" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="button-pane">
+          <input type="button" class="btn btn-primary" id="add-button" value="Agregar Publicacion" />
+          <input type="reset" class="btn btn-success" id="register-form-reset" value="Limpiar" />
+        </div>
+
+      </form>
+    </div>
+
+    <div id="div1" style="display:none">
+      <form id="delete-form">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <label for="pub-biblioid-to-delete">
+                  Bibliografia ID:<br />
+                  <span class="note">(ISBN, ISSN, etc.)</span>
+                </label>
+              </td>
+              <td>
+                <input type="text" id="pub-biblioid-to-delete" name="pub-biblioid-to-delete" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="key-to-delete">
+                  Key:<br />
+                  <span class="note">(for example 1, 2, 3, etc.)</span>
+                </label>
+              </td>
+              <td>
+                <input type="text" id="key-to-delete" name="key-to-delete" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="button-pane">
+          <input type="button" id="delete-button" value="Eliminar Publicacion" />
+          <input type="button" id="clear-store-button" value="Limpiar la BD" class="destructive" />
+        </div>
+      </form>
+    </div>
+
+
+
+    <div id="div2" style="display:none">
+      <form id="search-form">
+        <div class="button-pane">
+          <input type="button" id="search-list-button" value="Listar el contenido de la BD" />
+        </div>
+      </form>
+      <div>
+        <div id="pub-msg">
+        </div>
+        <div id="pub-viewer">
+        </div>
+        <ul id="pub-list">
+        </ul>
+      </div>
+    </div>
+
+    <div class="social">
+      <ul>
+        <li><a href="http://www.facebook.com/herbertvelasco" target="_blank" class="icon-facebook"></a></li>
+        <li><a href="http://www.twitter.com/hvelascomiranda" target="_blank" class="icon-twitter"></a></li>
+        <li><a href="http://www.twitch.com/" target="_blank" class="icon-twitch"></a></li>
+        <li><a href="http://www.whatsapp.com/987678334" target="_blank" class="icon-whatsapp"></a></li>
+        <li><a href="mailto:havm14@gmail.com" class="icon-mail"></a></li>
+      </ul>
+    </div>
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12 position-relative">
+          <hr class="barragris">
+          <hr class="barraroja">
+          <hr class="barranegra">
+        </div>
+      </div>
+    </div>
+    <br><br><br>
+
+    <div class="stage">
+      <div class="table"></div>
+      <div class="pc"></div>
+      <div class="cup"></div>
+      <div class="cup-cover"></div>
+      <div class="clock">
+        <div class="marker-top"></div>
+        <div class="marker-right"></div>
+        <div class="marker-bottom"></div>
+        <div class="marker-left"></div>
+        <div class="pointer-min"></div>
+        <div class="pointer-hour"></div>
+        <div class="pointer"></div>
+      </div>
+      <div class="guy">
+        <div class="hat">
+          <div class="hat-hair"></div>
+          <div class="hat-close"></div>
+        </div>
+        <div class="hair-left"></div>
+        <div class="hair-middle"></div>
+        <div class="hair-right"></div>
+        <div class="ear-left"></div>
+        <div class="ear-right"></div>
+        <div class="face">
+          <div class="eye"></div>
+          <div class="eye"></div>
+          <div class="nose"></div>
+          <div class="mouth"></div>
+        </div>
+        <div class="neck"></div>
+        <div class="body"></div>
+      </div>
+      <div class="book one"></div>
+      <div class="book two"></div>
+      <div class="book three"></div>
+    </div>
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12 position-relative">
+          <hr class="barragris">
+          <hr class="barraroja">
+          <hr class="barranegra">
+        </div>
+      </div>
+    </div>
+
+    <p>Copyleft Ↄ         --HAVM--</p>
+
+  </main>
+
+  <footer>
+  </footer>
+
+
+  <script src="js/bibliobd.js" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>
